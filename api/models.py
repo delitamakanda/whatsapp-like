@@ -28,6 +28,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.display_name
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="profile")
+    bio = models.CharField(_("bio"), max_length=255, blank=True, null=True)
+    dob = models.DateField(_("date of birth"), blank=True, null=True)
+
+    def __str__(self):
+        return self.user.phone
+    
+    def get_short_name(self):
+        return self.user.display_name
+
+    class Meta:
+        verbose_name = _("user profile")
+        verbose_name_plural = _("user profiles")
+
+
 class Contact(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user_to = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="rel_to_set")
