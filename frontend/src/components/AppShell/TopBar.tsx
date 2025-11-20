@@ -1,6 +1,6 @@
 interface Props {
     title: string;
-    right: string;
+    right?: string;
     onBack?: () => void;
 }
 
