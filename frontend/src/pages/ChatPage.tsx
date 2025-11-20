@@ -6,6 +6,10 @@ import {SidebarSearch} from "../components/Sidebar/SidebarSearch.tsx";
 import type {Conversation, Message} from "@/interfaces/chat.ts";
 import {ConversationList} from "../components/ConversationList/ConversationList.tsx";
 import {ConversationListItem} from "../components/ConversationList/ConversationListItem.tsx";
+import {ConversationHeader} from "../components/ConversationList/ConversationHeader.tsx";
+import {MessageList} from "../components/Message/MessageList.tsx";
+import {MessageBubble} from "../components/Message/MessageBubble.tsx";
+import {MessageInput} from "../components/Message/MessageInput.tsx";
 
 export function ChatPage() {
     const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -32,7 +36,7 @@ export function ChatPage() {
         }
     ];
 
-    const message: Message[] = [
+    const messages: Message[] = [
         {
             id: '1',
             conversationId: '123',
@@ -86,20 +90,43 @@ export function ChatPage() {
             </Sidebar>
         }
         content={
-            <div className="flex flex-col flex-1">
-                {!selectedId ? (<div className="flex flex-1 items-center justify-center text-gray-400">Select a conversation</div>) : (<>
-                    Marie en ligne
-                    {message.filter((message) => message.conversationId === selectedId).map((message) => (
-                        <div key={message.id} className={`flex items-center gap-3 ${message.is_mine? "flex-end" : "flex-start"}`}>
-                            <img
-                                src={message.sender.avatarUrl}
-                                alt={message.sender.username}
-                                className={`w-10 h-10 rounded-full object-cover ${message.is_read? "border-gray-200" : ""}`}
-                            />
-                            <div className="flex-1 text-sm text-gray-600 truncate">{message.text}</div>
-                        </div>
-                    ))}
-                </>)}
+            <div className="flex flex-1 flex-col">
+                {!selectedId ? (
+                    <div className="flex flex-1 items-center justify-center text-gray-400">
+                        Sélectionne une conversation
+                    </div>
+                ) : (
+                    <>
+                        <ConversationHeader
+                            title="Marie"
+                            subtitle="En ligne"
+                        />
+                        <MessageList>
+                            <div className="text-center text-xs text-gray-400 mb-2">
+                                12 avril 2025
+                            </div>
+                            {messages.map((m) => (
+                                <MessageBubble
+                                    key={m.id}
+                                    mine={m.is_mine}
+                                    time={new Date(m.timestamp * 1000).toLocaleString()}
+                                    status={m.is_read? "read" : "sent"  }
+                                >
+                                    {m.text}
+                                </MessageBubble>
+                            ))}
+                            <div className="mt-4 text-center text-[11px] text-gray-500">
+                                Invitation en attente pour : john@doe.com
+                            </div>
+                        </MessageList>
+                        <MessageInput
+                            disabled={false}
+                            onSend={(text: string) => {
+                                console.log("send", text);
+                            }}
+                        />
+                    </>
+                )}
             </div>
         }>
         </AppShell>
