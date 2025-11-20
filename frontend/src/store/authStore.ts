@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 
-interface AuthState {
-    is_authenticated: boolean;
-    access_token?: string | null;
-    set_access_token: (token: string) => void;
+type AuthState  = {
+    isAuthenticated: boolean;
+    accessToken?: string | null;
+    setAccessToken: (token: string) => void;
 }
 
 
 export const useAuthStore = create<AuthState>((set) => ({
-    access_token: null,
-    is_authenticated: false,
-    set_access_token: (token) => set((state) => ({...state, is_authenticated: !!token, access_token: token })),
+    accessToken: null,
+    isAuthenticated: false,
+    setAccessToken: (token) => set((state) => ({...state, isAuthenticated: !!token, accessToken: token })),
 }))

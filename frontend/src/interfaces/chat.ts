@@ -21,4 +21,5 @@ export interface Message {
     is_mine: boolean;
     is_read: boolean;
     is_deleted: boolean;
+    status?: "sent" | "read" | "delivered" | "failed" | "pending";
 }
