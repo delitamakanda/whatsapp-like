@@ -9,7 +9,7 @@ export function Nav() {
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex text-center  gap-2 bg-white/90 border border-gray-200 shadow-sm rounded-full px-3 py-2">
             <Link to="/" className={linkClasses('/')}>Chat</Link>
             <Link to="/new" className={linkClasses('/new')}>New Conversation</Link>
-            <Link to="/invite" className={linkClasses('/invite')}>Invite</Link>
+            <Link to="/invite/91820fedeefeç" className={linkClasses('/invite')}>Invite</Link>
         </div>
     )
 }
