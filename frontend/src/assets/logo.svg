@@ -1,0 +1,16 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Chat bubble -->
+    <rect x="16" y="18" width="96" height="72" rx="20" stroke="currentColor" stroke-width="6"/>
+    <path d="M44 90 L32 110 L58 96" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Wisp / whisper stroke inside -->
+    <path
+            d="M34 56
+       C42 40, 58 40, 64 56
+       C70 72, 86 72, 94 56"
+            stroke="currentColor"
+            stroke-width="6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+    />
+</svg>
