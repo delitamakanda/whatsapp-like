@@ -1,1 +1,97 @@
-@import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+@import "tailwindcss/theme";
+
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/fonts/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+:root {
+    --app-bg: #f5f5f7;
+    --app-surface: #ffffff;
+    --app-border: #e5e7eb;
+    --app-text: #111827;
+    --app-muted: #6b7280;
+    --app-accent: #2563eb;
+    --app-accent-soft: #eff6ff;
+    --app-sent: #dcfce7;
+    --app-danger: #dc2626;
+    --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+@layer base {
+    body {
+        font-family: var(--font-sans), sans-serif;
+        color: var(--app-text);
+        background: var(--app-bg);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--app-accent);
+        outline-offset: 2px;
+    }
+}
+
+@layer components {
+    .surface {
+        @apply bg-[var(--app-surface)] border border-[var(--app-border)] rounded-xl shadow-sm;
+    }
+
+    .topbar {
+        @apply h-14 bg-[var(--app-surface)] border-b border-[var(--app-border)] px-4 flex items-center gap-3;
+    }
+
+    .message-list {
+        @apply flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-[var(--app-bg)];
+    }
+
+    .bubble-in {
+        @apply max-w-[70%] px-3 py-2 bg-white border border-[var(--app-border)] rounded-2xl rounded-bl-sm shadow-sm text-sm;
+    }
+
+    .bubble-out {
+        @apply max-w-[70%] px-3 py-2 bg-[var(--app-sent)] rounded-2xl rounded-br-sm shadow-sm text-sm;
+    }
+
+    .input-bar {
+        @apply px-3 py-3 bg-[var(--app-surface)] border-t border-[var(--app-border)] flex items-center gap-2;
+    }
+
+    .input-field {
+        @apply flex-1 bg-gray-100 rounded-lg px-3 py-2 text-sm focus:outline-none;
+    }
+
+    .btn-primary {
+        @apply w-full py-2 rounded-full bg-[var(--app-accent)] text-white font-semibold hover:brightness-95 disabled:bg-gray-300;
+    }
+}
+
+@layer utilities {
+    .text-muted {
+        color: var(--app-muted);
+    }
+
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: #d1d5db transparent;
+    }
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 8px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 9999px;
+    }
+}
