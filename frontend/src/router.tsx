@@ -32,7 +32,7 @@ export function AppRouter() {
 
                 <Route path="/" element={<ProtectedRoute><ChatPage /></ProtectedRoute>} />
 
-                <Route path="/signup/invite/:token" element={
+                <Route path="/invite/:token/signup" element={
                         <SignupFromInvitePage />
                 } />
                 <Route path="*" element={<Navigate to='/' replace />} />
