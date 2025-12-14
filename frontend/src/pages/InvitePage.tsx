@@ -3,6 +3,7 @@ import {InviteLanding} from "../components/InviteLanding/InviteLanding.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAuth} from "../hooks/useAuth.ts";
 import api from "../api/client.ts";
+import {ErrorBoundary} from "react-error-boundary";
 
 export function InvitePage() {
     const {  token } = useParams<{ token: string }>();
@@ -48,6 +49,39 @@ export function InvitePage() {
     }
     
     return (
-        <InviteLanding inviterName={inviterName} onLogin={() => navigate('/login', { state: { from: `/invite/${token}`}})} onSignup={() => navigate(`/signup`)} already={isAuthenticated} onJoin={()=> navigate(`/invite/${token}/signup`)} />
+        <>
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <div>
+                    <h1 className="text-xl font-bold text-center mb-4">Invitation reçue</h1>
+                    <p className="text-sm text-center">Merci de vous connecter avec votre compte pour accéder à votre groupe WhatsApp</p>
+                    <button
+                        onClick={() => navigate('/login', { state: { from: `/invite/${token}`}})}
+                        className="mt-2 px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold"
+                    >
+                        Se connecter
+                    </button>
+                    <button
+                        onClick={() => navigate(`/signup`)}
+                        className="mt-2 px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold"
+                    >
+                        Créer un compte
+                    </button>
+                </div>
+            </ErrorBoundary>
+            <InviteLanding inviterName={inviterName} onLogin={() => navigate('/login', { state: { from: `/invite/${token}`}})} onSignup={() => navigate(`/signup`)} already={isAuthenticated} onJoin={()=> navigate(`/invite/${token}/signup`)} />
+        </>
     )
+}
+
+function ErrorFallback({ error, resetErrorBoundary }: {
+    error: Error;
+    resetErrorBoundary: () => void;
+}) {
+    return (
+        <div role="alert">
+            <h2>Something went wrong</h2>
+            <pre>{error.message}</pre>
+            <button onClick={resetErrorBoundary}>Try again</button>
+        </div>
+    );
 }
